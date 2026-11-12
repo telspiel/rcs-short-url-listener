@@ -1,6 +1,8 @@
 
 package com.vts.shorturlistener.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
 
@@ -51,7 +53,7 @@ public class ShortUrlListenerController {
 			// Fetch short URL details from Redis
 			String redisKey = "child-" + uniqueId;
 
-			Map<String, String> details =redisTemplateForShortUrlMap.opsForValue().get(redisKey);
+			Map<String, String> details = redisTemplateForShortUrlMap.opsForValue().get(redisKey);
 
 			if (details == null || details.isEmpty()) {
 				logger.warn("Short URL not found in Redis: {}", redisKey);
@@ -135,6 +137,10 @@ public class ShortUrlListenerController {
 			analytics.setZip(userZip);
 
 			analytics.setLongUrl(details.get("longUrl"));
+			String buttonName = details.get("buttonName");
+
+			analytics.setButtonName(buttonName != null && !buttonName.isEmpty() ? Arrays.asList(buttonName.split(", "))
+					: new ArrayList<>());
 
 			// Store RCS short URL domain
 			analytics.setDomain(header);
