@@ -137,10 +137,11 @@ public class ShortUrlListenerController {
 			analytics.setZip(userZip);
 
 			analytics.setLongUrl(details.get("longUrl"));
-			String buttonName = details.get("buttonName");
-
-			analytics.setButtonName(buttonName != null && !buttonName.isEmpty() ? Arrays.asList(buttonName.split(", "))
-					: new ArrayList<>());
+			analytics.setButtonName(details.get("buttonName"));
+//			String buttonName = details.get("buttonName");
+//
+//			analytics.setButtonName(buttonName != null && !buttonName.isEmpty() ? Arrays.asList(buttonName.split(", "))
+//					: new ArrayList<>());
 
 			// Store RCS short URL domain
 			analytics.setDomain(header);
